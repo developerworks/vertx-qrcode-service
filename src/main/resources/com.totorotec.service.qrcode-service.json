@@ -5,7 +5,8 @@
       "imageType": "png",
       "imageSize": 380,
       "outputType": "file",
-      "filePatten": "/Users/hezhiqiang/totoro/_vertx-projects/service_qrcode/_tmp/%s.%s"
+      "filePatten": "/Users/hezhiqiang/totoro/_vertx-projects/service_qrcode/_tmp/%s.%s",
+      "deleteTempFile": false
     }
   }
 }

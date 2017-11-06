@@ -22,5 +22,5 @@ public interface QrcodeService {
     return new QrcodeServiceVertxEBProxy(vertx, address);
   }
 
-  void getQrcode(String text, Handler<AsyncResult<JsonObject>> resultHandler);
+  void getQrcode(String text, int imageSize, String imageType, String outputType, String filePatten, Handler<AsyncResult<JsonObject>> resultHandler);
 }

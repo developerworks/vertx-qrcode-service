@@ -20,14 +20,11 @@ public class QrcodeServiceImpl implements QrcodeService {
   }
 
   @Override
-  public void getQrcode(String text, Handler<AsyncResult<JsonObject>> resultHandler) {
+  public void getQrcode(String text, int imageSize, String imageType, String outputType, String filePatten, Handler<AsyncResult<JsonObject>> resultHandler) {
 
-    String imageType = config.getString("imageType");
-    Integer imageSize = config.getInteger("imageSize");
-    String outputType = config.getString("outputType");
-    String filePatten = config.getString("filePatten");
+    boolean deleteTempFile = config.getBoolean("deleteTempFile");
 
-    Qrcode qrcode = new Qrcode(text, imageSize, imageType, outputType, filePatten);
+    Qrcode qrcode = new Qrcode(text, imageSize, imageType, outputType, deleteTempFile, filePatten);
 
     try {
       String resp = qrcode.getQrcode();

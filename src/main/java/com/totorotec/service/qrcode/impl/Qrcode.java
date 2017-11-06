@@ -23,26 +23,28 @@ class Qrcode {
   private String text;
   private String outputType = "file";
   private String imageType = "png";
-  private int size = 128;
+  private int size = 600;
   private String filePath = "/tmp/%s.%s";
   private File imageFile = null;
+  private boolean deleteTempFile = true;
 
-  public Qrcode(String text, int size, String imageType, String output_type) {
+  public Qrcode(String text, int size, String imageType, String output_type, boolean deleteTempFile) {
     this.text = text;
     this.size = size;
     this.imageType = imageType;
     this.filePath = String.format(this.filePath, UUID.randomUUID().toString(), imageType);
-
     this.outputType = output_type;
+    this.deleteTempFile = deleteTempFile;
   }
 
-  public Qrcode(String text, int size, String imageType, String output_type, String filePath) {
+  public Qrcode(String text, int size, String imageType, String output_type, boolean deleteTempFile, String filePath) {
     this.text = text;
     this.size = size;
     this.imageType = imageType;
     this.filePath = String.format(filePath, UUID.randomUUID().toString(), imageType);
     this.outputType = output_type;
     this.imageFile = new File(this.filePath);
+    this.deleteTempFile = deleteTempFile;
   }
 
   public String getQrcode() throws Exception {
@@ -54,7 +56,7 @@ class Qrcode {
 
     QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-    BitMatrix byteMatrix = qrCodeWriter.encode(this.text, BarcodeFormat.QR_CODE, size, size, hintMap);
+    BitMatrix byteMatrix = qrCodeWriter.encode(this.text, BarcodeFormat.QR_CODE, this.size, this.size, hintMap);
     int matrixWidth = byteMatrix.getWidth();
     BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
     image.createGraphics();
@@ -69,7 +71,6 @@ class Qrcode {
         }
       }
     }
-    logger.debug(this.outputType);
     if (this.outputType.equals("dataurl")) {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ImageIO.write(image, imageType, baos);
@@ -82,8 +83,10 @@ class Qrcode {
       try {
         ImageIO.write(image, imageType, imageFile);
         logger.info(String.format("Qrcode image file is written to %s", filePath));
-        imageFile.delete();
-        logger.info(String.format("Image file %s has been deleted.", imageFile.getPath()));
+        if (deleteTempFile) {
+          imageFile.delete();
+          logger.info(String.format("Image file %s has been deleted.", imageFile.getPath()));
+        }
       } catch (SecurityException e) {
         String msg = String.format("Can not delete file: %s", imageFile.getPath());
         logger.error(msg, e);
