@@ -1,0 +1,11 @@
+{
+  "main": "com.totorotec.service.qrcode.QrcodeServiceVerticle",
+  "options": {
+    "config": {
+      "imageType": "png",
+      "imageSize": 380,
+      "text": "https://gm.totorotec.cn",
+      "filePatten": "/tmp/%s.%s"
+    }
+  }
+}
