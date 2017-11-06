@@ -4,8 +4,8 @@
     "config": {
       "imageType": "png",
       "imageSize": 380,
-      "text": "https://gm.totorotec.cn",
-      "filePatten": "/tmp/%s.%s"
+      "outputType": "file",
+      "filePatten": "/Users/hezhiqiang/totoro/_vertx-projects/service_qrcode/_tmp/%s.%s"
     }
   }
 }

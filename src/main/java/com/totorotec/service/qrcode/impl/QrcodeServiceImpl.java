@@ -24,18 +24,19 @@ public class QrcodeServiceImpl implements QrcodeService {
 
     String imageType = config.getString("imageType");
     Integer imageSize = config.getInteger("imageSize");
+    String outputType = config.getString("outputType");
+    String filePatten = config.getString("filePatten");
 
-    Qrcode qrcode = new Qrcode(text, imageSize, imageType);
+    Qrcode qrcode = new Qrcode(text, imageSize, imageType, outputType, filePatten);
 
     try {
       String resp = qrcode.getQrcode();
-      JsonObject result = new JsonObject().put("dataurl", resp);
+      JsonObject result = new JsonObject().put("data", resp);
       logger.debug("Generate qrcode for text: " + text);
       resultHandler.handle(Future.succeededFuture(result));
     } catch (Exception e) {
       logger.error(e);
     }
-
 
   }
 

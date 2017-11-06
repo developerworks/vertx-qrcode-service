@@ -27,19 +27,21 @@ class Qrcode {
   private String filePath = "/tmp/%s.%s";
   private File imageFile = null;
 
-  public Qrcode(String text, int size, String imageType) {
+  public Qrcode(String text, int size, String imageType, String output_type) {
     this.text = text;
     this.size = size;
     this.imageType = imageType;
-    this.outputType = "dataurl";
+    this.filePath = String.format(this.filePath, UUID.randomUUID().toString(), imageType);
+
+    this.outputType = output_type;
   }
 
-  public Qrcode(String text, int size, String imageType, String filePath) {
+  public Qrcode(String text, int size, String imageType, String output_type, String filePath) {
     this.text = text;
     this.size = size;
     this.imageType = imageType;
     this.filePath = String.format(filePath, UUID.randomUUID().toString(), imageType);
-    this.outputType = "file";
+    this.outputType = output_type;
     this.imageFile = new File(this.filePath);
   }
 
@@ -67,7 +69,8 @@ class Qrcode {
         }
       }
     }
-    if (this.outputType == "dataurl") {
+    logger.debug(this.outputType);
+    if (this.outputType.equals("dataurl")) {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       ImageIO.write(image, imageType, baos);
       String base64 = DatatypeConverter.printBase64Binary(baos.toByteArray());
@@ -75,7 +78,7 @@ class Qrcode {
       String msg = String.format("Qrcode image file is encoded to base 64 data url, image type: %s", imageType);
       logger.info(msg);
       return dataUrl;
-    } else if (outputType == "file") {
+    } else if (this.outputType.equals("file")) {
       try {
         ImageIO.write(image, imageType, imageFile);
         logger.info(String.format("Qrcode image file is written to %s", filePath));
