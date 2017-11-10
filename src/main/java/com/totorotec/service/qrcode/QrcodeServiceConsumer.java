@@ -16,7 +16,7 @@ public class QrcodeServiceConsumer extends AbstractVerticle {
     super.start();
 
     QrcodeService qrcodeServiceProxy = QrcodeService.createProxy(vertx, QrcodeService.SERVICE_ADDRESS);
-    qrcodeServiceProxy.getQrcode("https://gm.totorotec.com", 600, "jpg", "file",
+    qrcodeServiceProxy.getQrcode("https://www.qq.com", 600, "jpg", "file",
         "/Users/hezhiqiang/totoro/_vertx-projects/service_qrcode/_tmp/%s.%s", ar -> {
           if (ar.succeeded()) {
             logger.info(ar.result().encodePrettily());
