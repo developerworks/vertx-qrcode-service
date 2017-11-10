@@ -4,5 +4,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0"
-  }
+  },
+  "name": "service_qrcode",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/developerworks/service_qrcode.git",
+  "author": "developerworks <developerworks@163.com>",
+  "license": "MIT"
 }

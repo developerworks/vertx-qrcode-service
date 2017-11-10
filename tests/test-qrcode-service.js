@@ -8,7 +8,7 @@ eb.onopen = function () {
   // 实例化服务对象
   var service = new QrcodeService(eb, "com.totorotec.servicefactory.qrcode-service");
   // 调用服务
-  service.getQrcode("https://gm.totorotec.com", 380, "png", "dataurl", "/tmp/%s.%s", function (data, error) {
+  service.getQrcode("https://www.qq.com", 380, "png", "dataurl", "/tmp/%s.%s", function (data, error) {
     if(error == null) {
       console.log(data);
     } else {
