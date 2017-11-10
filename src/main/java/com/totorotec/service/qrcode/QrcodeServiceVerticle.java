@@ -9,7 +9,7 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.serviceproxy.ServiceBinder;
 
 /**
- * DatabaseServiceVerticle
+ * QrcodeServiceVerticle
  */
 public class QrcodeServiceVerticle extends AbstractVerticle {
   /**

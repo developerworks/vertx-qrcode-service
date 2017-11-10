@@ -5,7 +5,7 @@ export VERTICLE="com.totorotec.service.MainVerticle"
 export CMD="mvn compile"
 export VERTX_CMD="run"
 export JAVA_OPT="-Duser.language=en -Duser.country=US -Duser.variant=en_US"
-
+# export CLASSPATH=$CLASSPATH:./src/js
 
 mvn compile dependency:copy-dependencies
 java \

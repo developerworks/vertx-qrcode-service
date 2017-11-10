@@ -9,3 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 logs
 _tmp
+.vertx
+.idea
+service-qrcode.iml
+node_modules
