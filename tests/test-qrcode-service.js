@@ -18,26 +18,3 @@ eb.onopen = function () {
 }
 
 
-/**
- * async/await 封装
- *
- * 可以使用 babel-node 调用
- *
- * 1. 安装 babel-cli
- *    yarn add --dev babel-cli
- * 2. 运行
- *    ./node_modules/.bin/babel-node tests/test-qrcode-service.js
- */
-
-
-function getQrcode(text, imageSize, imageType, outputType, filePatten) {
-  return new Promise((resolve, reject) => {
-    service.getQrcode(text, imageSize, imageType, outputType, filePatten, function (data, error) {
-      if(error == null) {
-        resolve(data)
-      } else {
-        reject(error)
-      }
-    });
-  })
-}
