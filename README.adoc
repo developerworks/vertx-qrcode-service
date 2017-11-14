@@ -1,6 +1,6 @@
 ## How to run it
 
-I run this example in ubuntu 16.04, install deps with following command lies.
+I run this example in ubuntu 16.04, install deps with following command lines.
 
 ```
 apt-get install -y python-software-properties software-properties-common
