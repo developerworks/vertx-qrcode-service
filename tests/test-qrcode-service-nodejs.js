@@ -9,11 +9,13 @@ eb.onopen = function () {
   var service = new QrcodeService(eb, "com.totorotec.servicefactory.qrcode-service");
   // 调用服务
   service.getQrcode("https://www.qq.com", 380, "png", "dataurl", "/tmp/%s.%s", function (data, error) {
-    if(error == null) {
+    if (error == null) {
       console.log(data);
     } else {
       console.log(error);
     }
+    // Close event bus when result returned.
+    eb.close()
   });
 }
 

@@ -42,5 +42,6 @@ eb.onopen = async function () {
   // 调用服务: async/await 语法
   var qrcode = await getQrcode(service, "https://www.qq.com", 380, "png", "dataurl", "/tmp/%s.%s")
   console.log(qrcode)
-
+  // Close event bus when result returned.
+  eb.close()
 }
