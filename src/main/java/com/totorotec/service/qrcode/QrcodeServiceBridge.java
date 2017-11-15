@@ -33,6 +33,6 @@ public class QrcodeServiceBridge extends AbstractVerticle {
     router.route("/eventbus/*").handler(sockJSHandler);
 
     // 监听
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080);
+    vertx.createHttpServer().requestHandler(router::accept).listen(8080, "127.0.0.1");
   }
 }
