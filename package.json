@@ -5,6 +5,10 @@
   "devDependencies": {
     "babel-cli": "^6.26.0"
   },
+  "scripts": {
+    "run_qr8": "java -jar ./target/service-qrcode-20171106-fat.jar",
+    "run_qr9": "java --add-modules java.xml.bind -jar ./target/service-qrcode-20171106-fat.jar"
+  },
   "name": "service_qrcode",
   "version": "1.0.0",
   "main": "index.js",
