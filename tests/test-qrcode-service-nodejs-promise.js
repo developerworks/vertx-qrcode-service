@@ -22,7 +22,18 @@ function getQrcode(service, text, imageSize, imageType, outputType, filePatten) 
 
 
 var EventBus = require("vertx3-eventbus-client")
-var eb = new EventBus("http://localhost:8080/eventbus")
+
+var options = {
+  vertxbus_reconnect_attempts_max: Infinity,  // Max reconnect attempts
+  vertxbus_reconnect_delay_min: 1000,         // Initial delay (in ms) before first reconnect attempt
+  vertxbus_reconnect_delay_max: 5000,         // Max delay (in ms) between reconnect attempts
+  vertxbus_reconnect_exponent: 2,             // Exponential backoff factor
+  vertxbus_randomization_factor: 0.5          // Randomization factor between 0 and 1
+};
+
+var eb = new EventBus("http://localhost:8080/eventbus", options);
+eb.enableReconnect(true)
+
 
 eb.onopen = async function () {
   // 导入代理模块
@@ -44,4 +55,15 @@ eb.onopen = async function () {
   console.log(qrcode)
   // Close event bus when result returned.
   eb.close()
+}
+
+
+eb.onerror = function() {
+  logger.error("Eventbus: error ocurred.")
+}
+eb.onclose = function() {
+  logger.error("Eventbus: closed.")
+}
+eb.onreconnect = function() {
+  logger.info("Eventbus: reconnecting...")
 }
