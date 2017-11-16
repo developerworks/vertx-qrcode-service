@@ -18,7 +18,15 @@
   <script>
 
     var qrcodeStr;
-    var eb = new EventBus('http://localhost:8080/eventbus');
+    var options = {
+      vertxbus_reconnect_attempts_max: Infinity,  // Max reconnect attempts
+      vertxbus_reconnect_delay_min: 1000,         // Initial delay (in ms) before first reconnect attempt
+      vertxbus_reconnect_delay_max: 5000,         // Max delay (in ms) between reconnect attempts
+      vertxbus_reconnect_exponent: 2,             // Exponential backoff factor
+      vertxbus_randomization_factor: 0.5          // Randomization factor between 0 and 1
+    };
+    var eb = new EventBus('http://localhost:8080/eventbus', options);
+    eb.enableReconnect(true);
     eb.onopen = function () {
       var service = new QrcodeService(eb, "com.totorotec.servicefactory.qrcode-service");
       service.getQrcode("https://www.qq.com", 380, "png", "dataurl", "/tmp/%s.%s", function (error, data) {
@@ -33,6 +41,15 @@
         }
       });
     };
+    eb.onerror = function() {
+      logger.error("Eventbus: error ocurred.");
+    }
+    eb.onclose = function() {
+      logger.error("Eventbus: closed.");
+    }
+    eb.onreconnect = function() {
+      logger.info("Eventbus: reconnecting...");
+    }
   </script>
 
 </body>
