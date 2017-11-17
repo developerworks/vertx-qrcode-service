@@ -1,6 +1,8 @@
 package com.totorotec.service.qrcode;
 
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
@@ -11,6 +13,8 @@ import io.vertx.ext.web.handler.sockjs.SockJSHandler;
  * 扩展到了客户端Javascript
  */
 public class QrcodeServiceBridge extends AbstractVerticle {
+  private static final Logger logger = LoggerFactory.getLogger(QrcodeServiceBridge.class);
+
   @Override
   public void start() throws Exception {
     super.start();
@@ -33,6 +37,13 @@ public class QrcodeServiceBridge extends AbstractVerticle {
     router.route("/eventbus/*").handler(sockJSHandler);
 
     // 监听
-    vertx.createHttpServer().requestHandler(router::accept).listen(8080, "127.0.0.1");
+    vertx.createHttpServer().connectionHandler(conn -> {
+      // Track conn.remoteAddress()
+      logger.info("Accept connect from " + conn.remoteAddress().toString());
+      conn.closeHandler(v -> {
+        // Cleanup track of conn.remoteAddress()
+        logger.info("Disconnect from " + conn.remoteAddress().toString());
+      });
+    }).requestHandler(router::accept).listen(8080, "127.0.0.1");
   }
 }

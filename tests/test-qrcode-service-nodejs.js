@@ -24,7 +24,7 @@ eb.onopen = function () {
       console.log(error);
     }
     // Close event bus when result returned.
-    eb.close()
+    // eb.close()
   });
 }
 
