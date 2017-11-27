@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.totorotec.service</groupId>
-  <artifactId>service-qrcode</artifactId>
+  <artifactId>vertx-qrcode-service</artifactId>
   <version>20171106</version>
 
   <properties>

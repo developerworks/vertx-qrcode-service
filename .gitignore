@@ -11,5 +11,5 @@ logs
 _tmp
 .vertx
 .idea
-service-qrcode.iml
+*.iml
 node_modules
