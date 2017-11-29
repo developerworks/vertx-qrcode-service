@@ -14,3 +14,10 @@ cd vertx-qrcode-service
 mvn compile
 ./redeploy.sh
 ```
+
+You can package a fat jar and run it:
+
+```
+mvn clean package
+java -jar ./target/vertx-qrcode-service-20171106-fat.jar
+```
