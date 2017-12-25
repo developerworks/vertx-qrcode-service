@@ -10,6 +10,7 @@
   <version>20171106</version>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vertx.version>3.5.0</vertx.version>
     <main.verticle>com.totorotec.service.MainVerticle</main.verticle>
   </properties>

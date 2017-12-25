@@ -21,16 +21,16 @@ public class QrcodeServiceBridge extends AbstractVerticle {
 
     // 初始化路由器
     Router router = Router.router(vertx);
-
     // 套接字处理
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
 
     // 桥选项
+    //
     BridgeOptions options = new BridgeOptions();
     options.addInboundPermitted(new PermittedOptions().setAddress(QrcodeService.SERVICE_ADDRESS));
     options.addOutboundPermitted(new PermittedOptions().setAddress(QrcodeService.SERVICE_ADDRESS));
 
-    // 桥接
+    // 桥接 它可以链接js和java
     sockJSHandler.bridge(options);
 
     // 设置路由
